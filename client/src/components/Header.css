@@ -1,0 +1,14 @@
+.search-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 200px;
+}
+
+.profile-icon {
+    cursor: pointer;
+}
+
+.basket-icon {
+    cursor: pointer;
+}

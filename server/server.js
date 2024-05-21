@@ -29,6 +29,17 @@ mongoose.connect(uri)
 })
 .catch((err) => {console.log(err)})
 
+const orderRoutes = require('./routes/OrderRoutes');
+const productRoutes = require('./routes/ProductRoutes')
+const authRoutes = require('./routes/AuthRoutes');
+
+
+
+app.use('/api/orders', orderRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes);
+
+
 app.listen(PORT, () => {console.log(`Server is listening on port: ${PORT}`)})
 
 app.get('/test',(req, res) => {

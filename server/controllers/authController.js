@@ -1,9 +1,7 @@
 const express = require('express')
-const router = express.Router()
 const { generateToken, verifyToken} = require('../middleware/authMiddleware')
-
 const bcrypt = require('bcryptjs')
-const { User } = require('../models/User')
+const User = require('../models/User')
 
 const register = async (req, res) => {
     const { email, password } = req.body

@@ -24,8 +24,13 @@ const Header = () => {
           <IoIosSearch size={25} />
           <Form.Control type="search" id="search" placeholder="Search..." />
         </div>
+        <div>
+          <Nav>
+            <Nav.Link href="/login">Login</Nav.Link>
+          </Nav>
+        </div>
         <div className="ms-3">
-          <CgProfile size={30} className="profile-icon" />
+          <CgProfile href="/login" size={30} className="profile-icon" />
         </div>
         <div className="ms-3 ps-4">
           <FaShoppingBasket size={30} className="basket-icon" />

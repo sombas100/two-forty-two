@@ -6,8 +6,10 @@ import "./Header.css";
 import { FaShoppingBasket } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSearch } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isAuthenticated, handleLogout }) => {
+  const navigate = useNavigate();
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
@@ -26,7 +28,13 @@ const Header = () => {
         </div>
         <div>
           <Nav>
-            <Nav.Link href="/login">Login</Nav.Link>
+            {isAuthenticated ? (
+              <Nav.Link as="button" onClick={handleLogout}>
+                Logout
+              </Nav.Link>
+            ) : (
+              <Nav.Link href="/login">Login</Nav.Link>
+            )}
           </Nav>
         </div>
         <div className="ms-3">
@@ -39,5 +47,4 @@ const Header = () => {
     </Navbar>
   );
 };
-
 export default Header;

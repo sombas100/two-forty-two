@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import "../App.css";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +35,7 @@ const Login = () => {
       const { token } = res.data;
       localStorage.setItem("token", token);
 
+      onLogin();
       navigate("/");
     } catch (error) {
       setError("Login failed. Please check your credentials.");

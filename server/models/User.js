@@ -15,6 +15,10 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    image: {
+        type: String,
+        
+    }
 })
 
 const User = mongoose.model('User', UserSchema)

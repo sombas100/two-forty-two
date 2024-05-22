@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import "../App.css";
 
-const Login = ({ onLogin }) => {
+const Register = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ const Login = ({ onLogin }) => {
       setIsLoading(true);
       setError(null);
 
-      const res = await axios.post("http://localhost:3000/api/auth/login", {
+      const res = await axios.post("http://localhost:3000/api/auth/register", {
         email: formData.email,
         password: formData.password,
       });
@@ -38,7 +38,7 @@ const Login = ({ onLogin }) => {
       onLogin();
       navigate("/");
     } catch (error) {
-      setError("Login failed. Please check your credentials.");
+      setError("Registration failed. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -81,8 +81,8 @@ const Login = ({ onLogin }) => {
                   type="password"
                   placeholder="Password"
                 />
-                <a href="/register" className="notice">
-                  Don't have an account? Register here
+                <a href="/login" className="notice">
+                  Already have an account? Sign in here
                 </a>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -94,7 +94,7 @@ const Login = ({ onLogin }) => {
                 type="submit"
                 disabled={isLoading}
               >
-                Submit
+                Register
               </Button>
             </Form>
           </div>
@@ -104,4 +104,4 @@ const Login = ({ onLogin }) => {
   );
 };
 
-export default Login;
+export default Register;

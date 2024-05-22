@@ -1,4 +1,4 @@
-span {
+.forty {
     color: rgb(43, 174, 226);
 }
 
@@ -7,4 +7,15 @@ span {
     margin-bottom: 10px;
     padding-bottom: 15px;
     font-weight: 650;
+}
+
+.notice {
+    font-size: 12px;
+    color: rgb(0, 110, 255);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.notice:hover {
+    color: rgb(17, 17, 255);
 }

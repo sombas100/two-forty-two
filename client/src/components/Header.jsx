@@ -14,7 +14,7 @@ const Header = ({ isAuthenticated, handleLogout }) => {
     <Navbar className="bg-body-tertiary">
       <Container>
         <Navbar.Brand className="me-9 pe-5" href="/">
-          242
+          2<span className="forty">4</span>2
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link className="pe-4" href="/">
@@ -38,7 +38,11 @@ const Header = ({ isAuthenticated, handleLogout }) => {
           </Nav>
         </div>
         <div className="ms-3">
-          <CgProfile href="/login" size={30} className="profile-icon" />
+          <CgProfile
+            onClick={() => navigate("/login")}
+            size={30}
+            className="profile-icon"
+          />
         </div>
         <div className="ms-3 ps-4">
           <FaShoppingBasket size={30} className="basket-icon" />

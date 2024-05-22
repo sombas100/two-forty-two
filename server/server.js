@@ -44,5 +44,5 @@ app.listen(PORT, () => {console.log(`Server is listening on port: ${PORT}`)})
 
 app.get('/test',(req, res) => {
     console.log('API is running!')
-    res.send('WORKING').json()
+    res.send('WORKING')
 })

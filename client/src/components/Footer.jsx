@@ -1,7 +1,13 @@
 // Footer.jsx
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaGithub,
+} from "react-icons/fa";
 import "./Footer.css";
 
 const Footer = () => {
@@ -33,7 +39,7 @@ const Footer = () => {
                 <FaTwitter size={30} />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/persian184/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -45,6 +51,13 @@ const Footer = () => {
                 rel="noopener noreferrer"
               >
                 <FaLinkedin size={30} />
+              </a>
+              <a
+                href="https://github.com/sombas100"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaGithub size={30} />
               </a>
             </div>
           </Col>

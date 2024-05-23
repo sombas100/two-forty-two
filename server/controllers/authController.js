@@ -18,7 +18,8 @@ const register = async (req, res) => {
 
     user = new User({
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        image: 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg',
     })
 
     await user.save()
@@ -57,15 +58,19 @@ const GoogleAuth = async (req, res) => {
     const { idToken } = req.body;
     try {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
-        const { uid, email } = decodedToken;
+        const { uid, email, image } = decodedToken;
 
         let user = await User.findOne({ email });
         if (!user) {
             user = new User({
                 email,
-                password: 'GOOGLE_AUTH'
+                password: 'GOOGLE_AUTH',
+                image: image
 
             })
+            await user.save()
+        } else {
+            user.image = image
             await user.save()
         }
         const token = generateToken(user);

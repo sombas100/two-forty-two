@@ -7,9 +7,42 @@ import { FaShoppingBasket } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSearch } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Header = ({ isAuthenticated, handleLogout }) => {
+  const [image, setImage] = useState(
+    "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
+  );
   const navigate = useNavigate();
+
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:3000/api/profile", {
+        headers: {
+          "x-auth-token": token,
+        },
+      });
+      console.log(res.data.image);
+      setImage(
+        res.data.image ||
+          "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
+      );
+    } catch (error) {
+      console.error("Error fetching the profile:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchProfile();
+    }
+  }, [isAuthenticated]);
+
+  const handleProfileClick = () => {
+    navigate("/profile");
+  };
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
@@ -38,11 +71,25 @@ const Header = ({ isAuthenticated, handleLogout }) => {
           </Nav>
         </div>
         <div className="ms-3">
-          <CgProfile
-            onClick={() => navigate("/login")}
-            size={30}
-            className="profile-icon"
-          />
+          {isAuthenticated ? (
+            <img
+              src={image}
+              alt="profile"
+              onClick={() => navigate("/profile")}
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                cursor: "pointer",
+              }}
+            />
+          ) : (
+            <CgProfile
+              onClick={handleProfileClick}
+              size={30}
+              className="profile-icon"
+            />
+          )}
         </div>
         <div className="ms-3 ps-4">
           <FaShoppingBasket size={30} className="basket-icon" />

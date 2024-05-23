@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const User = require('../models/User')
 
 const generateToken = (user) => {
     return jwt.sign(
@@ -8,7 +9,7 @@ const generateToken = (user) => {
     );
 };
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (req, res, next) => {
     const token = req.header('x-auth-token')
 
     if (!token) {
@@ -17,9 +18,13 @@ const verifyToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
+        req.user = await User.findById(decoded.id);
+        if (!req.user) {
+            return res.status(401).json({ message: 'Authorization denied, user not found'})
+        }
         next()
     } catch (error) {
+        console.error('Auth middleware error:' , error)
         res.status(401).json({ message: 'Token is not valid' })
     }
 };

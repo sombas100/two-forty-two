@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { useState, useEffect } from "react";
+import Footer from "./components/Footer";
 
 function App() {
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
@@ -36,6 +37,7 @@ function App() {
           element={<Register onLogin={handleLogin} />}
         ></Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

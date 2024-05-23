@@ -16,6 +16,21 @@
     text-decoration: none;
 }
 
+.notice2 {
+    color: black;
+}
+
 .notice:hover {
     color: rgb(17, 17, 255);
 }
+
+.oauth-container {
+    max-width: 100%;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .oauth-button-container .btn {
+    width: 100%;
+  }
+  

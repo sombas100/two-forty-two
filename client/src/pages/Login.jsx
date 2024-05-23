@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import "../App.css";
+import OAuth from "../components/OAuth";
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -82,7 +83,8 @@ const Login = ({ onLogin }) => {
                   placeholder="Password"
                 />
                 <a href="/register" className="notice">
-                  Don't have an account? Register here
+                  <span className="notice2">Don't have an account?</span>{" "}
+                  Register here
                 </a>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -96,6 +98,9 @@ const Login = ({ onLogin }) => {
               >
                 Submit
               </Button>
+              <div className="oauth-container">
+                <OAuth onLogin={onLogin} />
+              </div>
             </Form>
           </div>
         </Col>

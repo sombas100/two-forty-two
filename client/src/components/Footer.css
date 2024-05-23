@@ -1,0 +1,37 @@
+
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1rem 0;
+    margin-top: auto; 
+    position: sticky;
+  }
+  
+  .footer-content h5 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-content p {
+    margin: 0;
+  }
+  
+  .social-media-links h5 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-icons a {
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #007bff;
+  }
+  

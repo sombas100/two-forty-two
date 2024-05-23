@@ -1,7 +1,8 @@
-const express = require('express')
+const express = require('express');
 const { generateToken, verifyToken} = require('../middleware/authMiddleware')
-const bcrypt = require('bcryptjs')
-const User = require('../models/User')
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const admin = require('../firebaseAdmin');
 
 const register = async (req, res) => {
     const { email, password } = req.body
@@ -52,7 +53,32 @@ const login = async (req, res) => {
     }
 }
 
+const GoogleAuth = async (req, res) => {
+    const { idToken } = req.body;
+    try {
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        const { uid, email } = decodedToken;
+
+        let user = await User.findOne({ email });
+        if (!user) {
+            user = new User({
+                email,
+                password: 'GOOGLE_AUTH'
+
+            })
+            await user.save()
+        }
+        const token = generateToken(user);
+
+        res.json({ token })
+    } catch (error) {
+        console.error(error)
+        res.status(401).json({ message: 'Invalid token' })
+    }
+}
+
 module.exports = {
     register,
-    login
+    login,
+    GoogleAuth
 }

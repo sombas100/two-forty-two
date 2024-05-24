@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./ItemDescription.css";
+import Button from "react-bootstrap/Button";
 
 const ItemDescription = () => {
   const { productId } = useParams();
@@ -65,7 +66,14 @@ const ItemDescription = () => {
             onChange={(e) => setQuantity(e.target.value)}
           />
         </div>
-        <button onClick={handleAddToBasket}>Add to Basket</button>
+        <Button
+          className="w-100"
+          type="button"
+          variant="secondary"
+          onClick={handleAddToBasket}
+        >
+          Add to Basket
+        </Button>
       </div>
     </div>
   );

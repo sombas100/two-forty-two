@@ -7,6 +7,8 @@ router.post('/',verifyToken, productController.createProduct);
 
 router.get('/', productController.getAllProducts);
 
+router.get('/shop', productController.getShopPageProducts)
+
 router.get('/:id', productController.getProductById);
 
 router.put('/:id',verifyToken, productController.updateProductById);

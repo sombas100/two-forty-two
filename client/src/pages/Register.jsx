@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import "../App.css";
 import OAuth from "../components/OAuth";
+import Spinner from "react-bootstrap/Spinner";
 
 const Register = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -61,7 +62,7 @@ const Register = ({ onLogin }) => {
               </p>
             </div>
             {error && <div className="alert alert-danger">{error}</div>}
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <Spinner animation="border" />}
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="email">
                 <Form.Label>Email address</Form.Label>

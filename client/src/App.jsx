@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import { useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
+import Shop from "./pages/shop/Shop";
 
 function App() {
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
@@ -32,6 +33,7 @@ function App() {
       <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/shop" element={<Shop />}></Route>
         <Route path="/login" element={<Login onLogin={handleLogin} />}></Route>
         <Route
           path="/register"

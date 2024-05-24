@@ -21,6 +21,10 @@
     flex-direction: column; /* Stack elements vertically */
     justify-content: space-between; /* Center content vertically */
   }
+
+  .product-card:hover {
+    transform: translateY(-10);
+  }
   
   .product-image {
     max-width: 100%;

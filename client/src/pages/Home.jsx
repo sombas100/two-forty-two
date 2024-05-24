@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
   return (
     <div className="products-container">
-      <h1 className="mb-5">Products</h1>
+      <h1 className="mb-5">Best Sellers</h1>
       <ul className="products-grid">
         {products.map((product) => (
           <li className="product-card" key={product._id}>

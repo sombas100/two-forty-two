@@ -11,15 +11,15 @@
   }
   
   .product-card {
-    flex: 1 1 calc(33.333% - 40px); /* 3 items per row with some space between */
+    flex: 1 1 calc(33.333% - 40px); 
     box-sizing: border-box;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     text-align: center;
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: space-between; /* Center content vertically */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
   }
 
   .product-card:hover {
@@ -30,11 +30,17 @@
     max-width: 100%;
     height: auto;
     object-fit: contain;
-    margin-bottom: 10px; /* Add some space between image and other content */
+    margin-bottom: 10px; 
     cursor: pointer;
   }
   
   .product-price {
     font-size: large;
     font-weight: 600;
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }

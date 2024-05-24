@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -9,6 +10,7 @@ import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import Shop from "./pages/shop/Shop";
 import AutoLogout from "./components/AutoLogout";
+import ItemDescription from "./pages/ItemDescription";
 
 function App() {
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
@@ -16,8 +18,28 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      SetIsAuthenticated(true);
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp > currentTime) {
+        SetIsAuthenticated(true);
+      } else {
+        handleLogout();
+      }
     }
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          handleLogout();
+        }
+      }
+    }, 60000);
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleLogin = () => {
@@ -42,6 +64,10 @@ function App() {
           element={<Register onLogin={handleLogin} />}
         ></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route
+          path="/products/:productId"
+          element={<ItemDescription />}
+        ></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

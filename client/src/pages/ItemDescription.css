@@ -1,0 +1,31 @@
+.item-description-container {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+  }
+  
+  .item-image {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .item-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .item-details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+  
+  .quantity-container {
+    margin: 10px 0;
+  }
+  
+  .quantity-container label {
+    margin-right: 10px;
+  }
+  

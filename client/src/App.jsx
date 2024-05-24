@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import Shop from "./pages/shop/Shop";
+import AutoLogout from "./components/AutoLogout";
 
 function App() {
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
@@ -30,6 +31,7 @@ function App() {
   };
   return (
     <BrowserRouter>
+      <AutoLogout />
       <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />}></Route>

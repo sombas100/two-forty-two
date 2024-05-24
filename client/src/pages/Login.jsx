@@ -9,6 +9,7 @@ import axios from "axios";
 import "../App.css";
 import OAuth from "../components/OAuth";
 import Spinner from "react-bootstrap/Spinner";
+import LoadingButton from "../components/LoadingButton";
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -91,14 +92,20 @@ const Login = ({ onLogin }) => {
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Remember me" />
               </Form.Group>
-              <Button
-                className="w-100"
-                variant="primary"
-                type="submit"
-                disabled={isLoading}
-              >
-                Submit
-              </Button>
+              {isLoading ? (
+                <div>
+                  <LoadingButton />
+                </div>
+              ) : (
+                <Button
+                  className="w-100"
+                  variant="primary"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  Submit
+                </Button>
+              )}
               <div className="oauth-container">
                 <OAuth onLogin={onLogin} />
               </div>

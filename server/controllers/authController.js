@@ -20,6 +20,7 @@ const register = async (req, res) => {
         email,
         password: hashedPassword,
         image: 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg',
+        basket: { items: [] }
     })
 
     await user.save()
@@ -65,7 +66,8 @@ const GoogleAuth = async (req, res) => {
             user = new User({
                 email,
                 password: 'GOOGLE_AUTH',
-                image: image
+                image: image,
+                basket: { items: [] },
 
             })
             await user.save()

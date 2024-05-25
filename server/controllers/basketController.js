@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const addToBasket = async (req, res) => {
-    const [ productId, quantity] = req.body;
+    const { productId, quantity } = req.body;
     const token = req.header('x-auth-token');
 
     if (!token) {
@@ -21,12 +21,17 @@ const addToBasket = async (req, res) => {
         user.basket.push({ productId, quantity });
         await user.save();
 
-        res.status(200).json({ message: 'Item added to basket successfully' })
+        const updatedUser = await User.findById(req.user.id).populate('basket.productId')
+        res.status(200).json({ items: updatedUser.basket });
     } catch (error) {
         console.error('Error adding item to basket:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+const getBasketCount = async (req, res) => {
+    const userId = req.user.id;
+}
 
 module.exports = {
     addToBasket,

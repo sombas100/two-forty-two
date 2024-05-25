@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Header = ({ isAuthenticated, handleLogout }) => {
+const Header = ({ isAuthenticated, handleLogout, basketCount }) => {
   const [image, setImage] = useState(
     "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
   );
@@ -92,8 +92,11 @@ const Header = ({ isAuthenticated, handleLogout }) => {
             />
           )}
         </div>
-        <div className="ms-3 ps-4">
+        <div className="ms-3 ps-4 basket-container">
           <PiShoppingCartSimpleFill size={30} className="basket-icon" />
+          {basketCount > 0 && (
+            <span className="basket-count">{basketCount}</span>
+          )}
         </div>
       </Container>
     </Navbar>

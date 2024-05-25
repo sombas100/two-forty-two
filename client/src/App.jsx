@@ -13,16 +13,29 @@ import AutoLogout from "./components/AutoLogout";
 import ItemDescription from "./pages/ItemDescription";
 
 function App() {
-  const [isAuthenticated, SetIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [basketCount, setBasketCount] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-      if (decodedToken.exp > currentTime) {
-        SetIsAuthenticated(true);
-      } else {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp > currentTime) {
+          setIsAuthenticated(true);
+          setUser(decodedToken);
+          setBasketCount(
+            decodedToken.basket && decodedToken.basket.items
+              ? decodedToken.basket.items.length
+              : 0
+          );
+        } else {
+          handleLogout();
+        }
+      } catch (error) {
+        console.error("Failed to decode token:", error);
         handleLogout();
       }
     }
@@ -32,9 +45,14 @@ function App() {
     const intervalId = setInterval(() => {
       const token = localStorage.getItem("token");
       if (token) {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-        if (decodedToken.exp < currentTime) {
+        try {
+          const decodedToken = jwtDecode(token);
+          const currentTime = Date.now() / 1000;
+          if (decodedToken.exp < currentTime) {
+            handleLogout();
+          }
+        } catch (error) {
+          console.error("Failed to decode token:", error);
           handleLogout();
         }
       }
@@ -43,18 +61,44 @@ function App() {
   }, []);
 
   const handleLogin = () => {
-    SetIsAuthenticated(true);
+    setIsAuthenticated(true);
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUser(decodedToken);
+        setBasketCount(
+          decodedToken.basket && decodedToken.basket.items
+            ? decodedToken.basket.items.length
+            : 0
+        );
+      } catch (error) {
+        console.error("Failed to decode token:", error);
+        handleLogout();
+      }
+    }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    SetIsAuthenticated(false);
+    setIsAuthenticated(false);
+    setUser(null);
+    setBasketCount(0);
     window.location.href = "/login";
   };
+
+  const updateBasketCount = (newCount) => {
+    setBasketCount(newCount);
+  };
+
   return (
     <BrowserRouter>
       <AutoLogout />
-      <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
+      <Header
+        basketCount={basketCount}
+        isAuthenticated={isAuthenticated}
+        handleLogout={handleLogout}
+      />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/shop" element={<Shop />}></Route>
@@ -66,7 +110,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route
           path="/products/:productId"
-          element={<ItemDescription />}
+          element={<ItemDescription updateBasketCount={updateBasketCount} />}
         ></Route>
       </Routes>
       <Footer />

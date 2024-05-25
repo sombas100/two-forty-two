@@ -3,8 +3,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./ItemDescription.css";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
-const ItemDescription = () => {
+const ItemDescription = ({ updateBasketCount }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -25,26 +26,43 @@ const ItemDescription = () => {
   }, [productId]);
 
   const handleAddToBasket = () => {
-    const newItem = {
-      productId: product._id,
-      quantity: quantity,
-    };
-    axios
-      .post("http://localhost:3000/api/basket", newItem, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log("Item added to basket:", res.data);
-      })
-      .catch((err) => {
-        console.error("Error adding item to basket", err);
-      });
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found, please log in first.");
+      return;
+    }
+    if (quantity != null) {
+      const newItem = {
+        productId: product._id,
+        quantity: quantity,
+      };
+      axios
+        .post("http://localhost:3000/api/basket", newItem, {
+          headers: {
+            "x-auth-token": token,
+          },
+        })
+        .then((res) => {
+          console.log("Item added to basket:", res.data);
+          if (res.data.items) {
+            updateBasketCount(res.data.items.length);
+          } else {
+            console.error("Basket items data not found in response");
+          }
+        })
+        .catch((err) => {
+          console.error("Error adding item to basket", err);
+          console.log(res?.data?.items?.length);
+        });
+    }
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   }
   return (
     <div className="item-description-container">
@@ -58,6 +76,7 @@ const ItemDescription = () => {
         <div className="quantity-container">
           <label htmlFor="quantity">Quantity:</label>
           <input
+            style={{ borderRadius: "7px" }}
             type="number"
             id="quantity"
             value={quantity}

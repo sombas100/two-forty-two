@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Shop from "./pages/shop/Shop";
 import AutoLogout from "./components/AutoLogout";
 import ItemDescription from "./pages/ItemDescription";
+import Cart from "./pages/cart/Cart";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -112,6 +113,7 @@ function App() {
           path="/products/:productId"
           element={<ItemDescription updateBasketCount={updateBasketCount} />}
         ></Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -44,6 +44,10 @@ const Header = ({ isAuthenticated, handleLogout, basketCount }) => {
   const handleProfileClick = () => {
     navigate("/profile");
   };
+
+  const handleBasketClick = () => {
+    navigate("/cart");
+  };
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
@@ -93,7 +97,11 @@ const Header = ({ isAuthenticated, handleLogout, basketCount }) => {
           )}
         </div>
         <div className="ms-3 ps-4 basket-container">
-          <PiShoppingCartSimpleFill size={30} className="basket-icon" />
+          <PiShoppingCartSimpleFill
+            onClick={handleBasketClick}
+            size={30}
+            className="basket-icon"
+          />
           {basketCount > 0 && (
             <span className="basket-count">{basketCount}</span>
           )}

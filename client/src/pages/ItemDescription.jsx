@@ -52,7 +52,6 @@ const ItemDescription = ({ updateBasketCount }) => {
         })
         .catch((err) => {
           console.error("Error adding item to basket", err);
-          console.log(res?.data?.items?.length);
         });
     }
   };

@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import "./ItemDescription.css";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const ItemDescription = ({ updateBasketCount }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   const fetchProduct = async () => {
     try {
@@ -44,6 +46,7 @@ const ItemDescription = ({ updateBasketCount }) => {
         })
         .then((res) => {
           console.log("Item added to basket:", res.data);
+          navigate("/cart");
           if (res.data.items) {
             updateBasketCount(res.data.items.length);
           } else {

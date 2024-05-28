@@ -38,19 +38,16 @@ const Cart = () => {
       return;
     }
 
-    // Convert productId object to string
-    const stringProductId = productId._id.toString();
-
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/basket/${stringProductId}`,
+        `http://localhost:3000/api/basket/${productId}`,
         {
           headers: { "x-auth-token": token },
         }
       );
       if (res.status === 200) {
         setBasket((prevBasket) =>
-          prevBasket.filter((item) => item.productId._id !== stringProductId)
+          prevBasket.filter((item) => item.productId._id !== productId)
         );
       }
     } catch (error) {
@@ -66,13 +63,21 @@ const Cart = () => {
   const handleGoToBasket = () => {
     navigate("/basket");
   };
+  const handleGoToShop = () => {
+    navigate("/shop");
+  };
+
+  const totalPrice = basket.reduce(
+    (total, item) => total + item.productId.price * item.quantity,
+    0
+  );
 
   return (
     <div className="cart-container">
-      <h1>Your Basket</h1>
+      <h1 className="mb-5">Your Basket</h1>
       <div className="cart-items">
         {basket.map((item, index) => (
-          <div className="cart-item" key={index}>
+          <div className="cart-item" key={`${item.productId._id}-${index}`}>
             <img
               src={item.productId.image}
               alt={item.productId.name}
@@ -81,10 +86,12 @@ const Cart = () => {
             <div className="cart-items-details">
               <h3>{item.productId.name}</h3>
               <p>Quantity: {item.quantity}</p>
+              <p>Price: £{item.productId.price}</p>
               <Button
+                className="w-6 h-6 pe-1 px-1 pt-0"
                 size="sm"
                 variant="danger"
-                onClick={() => handleDelete(item.productId)}
+                onClick={() => handleDelete(item.productId._id)}
               >
                 <BiSolidTrashAlt />
               </Button>
@@ -93,6 +100,7 @@ const Cart = () => {
         ))}
       </div>
       <div className="cart-actions">
+        <h2>Subtotal: £{totalPrice.toFixed(2)}</h2>
         <Button
           variant="outline-primary"
           onClick={handleCheckout}
@@ -101,11 +109,11 @@ const Cart = () => {
           Proceed to Checkout
         </Button>
         <Button
-          variant="outline-warning"
-          onClick={handleGoToBasket}
+          variant="warning"
+          onClick={handleGoToShop}
           className="basket-button"
         >
-          Go toBasket
+          Continue Shopping
         </Button>
       </div>
     </div>

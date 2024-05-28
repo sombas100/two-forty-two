@@ -22,6 +22,7 @@ const verifyToken = async (req, res, next) => {
         if (!req.user) {
             return res.status(401).json({ message: 'Authorization denied, user not found'})
         }
+        req.userId = decoded.id;
         next()
     } catch (error) {
         console.error('Auth middleware error:' , error)

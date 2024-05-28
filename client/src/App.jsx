@@ -12,6 +12,7 @@ import Shop from "./pages/shop/Shop";
 import AutoLogout from "./components/AutoLogout";
 import ItemDescription from "./pages/ItemDescription";
 import Cart from "./pages/cart/Cart";
+import Payment from "./components/Payment";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -114,6 +115,7 @@ function App() {
           element={<ItemDescription updateBasketCount={updateBasketCount} />}
         ></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/payment" element={<Payment />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

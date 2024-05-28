@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken')
 const app = express()
 const PORT = process.env.PORT || 3000
 
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
@@ -30,16 +31,18 @@ mongoose.connect(uri)
 .catch((err) => {console.log(err)})
 
 const orderRoutes = require('./routes/OrderRoutes');
-const productRoutes = require('./routes/ProductRoutes')
-const profileRoute = require('./routes/profileRoute')
+const productRoutes = require('./routes/ProductRoutes');
+const profileRoute = require('./routes/profileRoute');
+const basketRoute = require('./routes/basketRoute');
+const paymentRoutes = require('./routes/paymentRoute');
 const authRoutes = require('./routes/AuthRoutes');
-const basketRoute = require('./routes/basketRoute')
 
 
 app.use('/api/orders', orderRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/profile', profileRoute);
 app.use('/api/basket', basketRoute);
+app.use('/api', paymentRoutes);
 app.use('/api/auth', authRoutes);
 
 

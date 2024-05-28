@@ -56,13 +56,12 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    // checkout logic pending...
-    console.log("Proceeding to checkout...");
+    const totalPrice = basket.reduce((total, item) => {
+      return total + item.productId.price * item.quantity;
+    }, 0);
+    navigate("/payment", { state: { totalPrice } });
   };
 
-  const handleGoToBasket = () => {
-    navigate("/basket");
-  };
   const handleGoToShop = () => {
     navigate("/shop");
   };

@@ -25,7 +25,7 @@ const Header = ({ isAuthenticated, handleLogout, basketCount }) => {
           "x-auth-token": token,
         },
       });
-      console.log(res.data.image);
+
       setImage(
         res.data.image ||
           "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"

@@ -1,24 +1,30 @@
 const Order = require('../models/Order');
-const stripe = require('stripe')
+const stripe = require('../utils/stripe')
 
 
 const createPaymentIntent = async (req, res) => {
-  try {
-    const { totalAmount } = req.body;
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalAmount * 100,
-      currency: 'usd',
-    });
-
-    res.json({
-      clientSecret: paymentIntent.client_secret,
-    });
-  } catch (error) {
-    console.error('Error creating payment intent:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
+    try {
+      const { totalAmount } = req.body;
+  
+      if (isNaN(totalAmount) || totalAmount <= 0) {
+        return res.status(400).json({ error: 'Invalid total amount' });
+      }
+     const amountInCents = Math.round(totalAmount * 100);
+    
+     const paymentIntent = await stripe.paymentIntents.create({
+        amount: amountInCents,
+        currency: 'usd',
+      });
+  
+      
+      res.json({
+        clientSecret: paymentIntent.client_secret,
+      });
+    } catch (error) {
+      console.error('Error creating payment intent:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
 const createOrder = async (req, res) => {
     try {

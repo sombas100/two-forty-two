@@ -3,6 +3,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { FaStripe } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ productId, quantity }) => {
   const stripe = useStripe();
@@ -12,14 +13,11 @@ const CheckoutForm = ({ productId, quantity }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [orderId, setOrderId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const createOrderAndPaymentIntent = async () => {
       try {
-        const requestData = {
-          products: [{ productId, quantity }],
-        };
-        console.log("Request data:", requestData);
         const { data } = await axios.post(
           "http://localhost:3000/api/orders",
           {
@@ -110,6 +108,14 @@ const CheckoutForm = ({ productId, quantity }) => {
       <button type="submit" disabled={!stripe || isLoading} className="pay-btn">
         <FaStripe size={30} className="stripe-icon" />
         {isLoading ? "Processing..." : "Pay"}
+      </button>
+      <button
+        onClick={() => navigate("/cart")}
+        type="submit"
+        disabled={!stripe || isLoading}
+        className="cancel-btn"
+      >
+        {isLoading ? "Processing..." : "Cancel"}
       </button>
       {error && <div className="error-msg">{error}</div>}
       {success && <div className="success-msg">Payment successful!</div>}

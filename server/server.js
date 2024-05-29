@@ -34,7 +34,7 @@ const orderRoutes = require('./routes/OrderRoutes');
 const productRoutes = require('./routes/ProductRoutes');
 const profileRoute = require('./routes/profileRoute');
 const basketRoute = require('./routes/basketRoute');
-const paymentRoutes = require('./routes/paymentRoute');
+
 const authRoutes = require('./routes/AuthRoutes');
 
 
@@ -42,7 +42,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/profile', profileRoute);
 app.use('/api/basket', basketRoute);
-app.use('/api', paymentRoutes);
+
 app.use('/api/auth', authRoutes);
 
 

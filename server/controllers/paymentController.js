@@ -1,4 +1,4 @@
-const stripe = require('../utils/stripe');
+const stripe = require('../utils/stripe')
 
 const createPaymentIntent = async (req, res) => {
     const { amount } = req.body;

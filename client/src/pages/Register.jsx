@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Ensure you have this import
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -30,10 +30,13 @@ const Register = ({ onLogin }) => {
       setIsLoading(true);
       setError(null);
 
-      const res = await axios.post("http://localhost:3000/api/auth/register", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const res = await axios.post(
+        "https://two-forty-two.onrender.com/api/auth/register",
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       const { token } = res.data;
       localStorage.setItem("token", token);

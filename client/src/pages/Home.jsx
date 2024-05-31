@@ -7,7 +7,9 @@ const Home = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/products");
+      const res = await axios.get(
+        "https://two-forty-two.onrender.com/api/products"
+      );
       SetProducts(res.data);
     } catch (error) {
       console.error("There was an error fetching the products:", error);

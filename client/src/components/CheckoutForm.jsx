@@ -19,7 +19,7 @@ const CheckoutForm = ({ productId, quantity }) => {
     const createOrderAndPaymentIntent = async () => {
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/api/orders",
+          "https://two-forty-two.onrender.com/api/orders",
           {
             products: [{ productId, quantity }],
           },
@@ -64,7 +64,7 @@ const CheckoutForm = ({ productId, quantity }) => {
       setError(`Payment failed: ${error.message}`);
     } else if (paymentIntent.status === "succeeded") {
       await axios.post(
-        "http://localhost:3000/api/payment/confirm-payment",
+        "https://two-forty-two.onrender.com/api/payment/confirm-payment",
         {
           paymentIntentId: paymentIntent.id,
           orderId,

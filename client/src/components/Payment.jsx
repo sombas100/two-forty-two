@@ -20,9 +20,12 @@ const Payment = ({ productId, quantity }) => {
         return;
       }
 
-      const res = await axios.get("http://localhost:3000/api/basket", {
-        headers: { "x-auth-token": token },
-      });
+      const res = await axios.get(
+        "https://two-forty-two.onrender.com/api/basket",
+        {
+          headers: { "x-auth-token": token },
+        }
+      );
 
       setProducts(res.data.basket);
     } catch (error) {

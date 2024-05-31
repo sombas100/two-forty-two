@@ -30,10 +30,13 @@ const Login = ({ onLogin }) => {
       setIsLoading(true);
       setError(null);
 
-      const res = await axios.post("http://localhost:3000/api/auth/login", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const res = await axios.post(
+        "https://two-forty-two.onrender.com/api/auth/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       const { token } = res.data;
       localStorage.setItem("token", token);

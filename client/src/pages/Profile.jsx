@@ -12,11 +12,14 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:3000/api/profile", {
-        headers: {
-          "x-auth-token": token,
-        },
-      });
+      const res = await axios.get(
+        "https://two-forty-two.onrender.com/api/profile",
+        {
+          headers: {
+            "x-auth-token": token,
+          },
+        }
+      );
       setProfile(res.data.user);
       setIsLoading(false);
     } catch (error) {

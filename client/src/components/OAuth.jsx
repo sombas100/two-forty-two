@@ -18,9 +18,12 @@ const OAuth = ({ onLogin }) => {
       console.log(resultsFromGoogle);
       const idToken = await resultsFromGoogle.user.getIdToken();
 
-      const res = await axios.post("http://localhost:3000/api/auth/google", {
-        idToken,
-      });
+      const res = await axios.post(
+        "https://two-forty-two.onrender.com/api/auth/google",
+        {
+          idToken,
+        }
+      );
 
       const { token } = res.data;
       localStorage.setItem("token", token);

@@ -15,7 +15,7 @@ const ItemDescription = ({ updateBasketCount }) => {
   const fetchProduct = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/products/${productId}`
+        `https://two-forty-two.onrender.com/api/products/${productId}`
       );
       setProduct(res.data);
     } catch (error) {
@@ -39,7 +39,7 @@ const ItemDescription = ({ updateBasketCount }) => {
         quantity: quantity,
       };
       axios
-        .post("http://localhost:3000/api/basket", newItem, {
+        .post("https://two-forty-two.onrender.com/api/basket", newItem, {
           headers: {
             "x-auth-token": token,
           },

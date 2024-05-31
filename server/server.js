@@ -14,7 +14,9 @@ const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors({
+    origin: ['https://two-forty-two.netlify.app/', 'http://localhost:3000']
+  }));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

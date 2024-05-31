@@ -16,18 +16,16 @@ const Header = ({ isAuthenticated, handleLogout, basketCount }) => {
     "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
   );
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        "https://two-forty-two.onrender.com/api/profile",
-        {
-          headers: {
-            "x-auth-token": token,
-          },
-        }
-      );
+      const res = await axios.get(`${VITE_API_URL}/profile`, {
+        headers: {
+          "x-auth-token": token,
+        },
+      });
 
       setImage(
         res.data.image ||

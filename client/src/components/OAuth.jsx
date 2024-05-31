@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const OAuth = ({ onLogin }) => {
   const navigate = useNavigate();
   const auth = getAuth(app);
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const handleGoogleClick = async () => {
     const provider = new GoogleAuthProvider();
@@ -18,12 +19,9 @@ const OAuth = ({ onLogin }) => {
       console.log(resultsFromGoogle);
       const idToken = await resultsFromGoogle.user.getIdToken();
 
-      const res = await axios.post(
-        "https://two-forty-two.onrender.com/api/auth/google",
-        {
-          idToken,
-        }
-      );
+      const res = await axios.post(`${VITE_API_URL}/auth/google`, {
+        idToken,
+      });
 
       const { token } = res.data;
       localStorage.setItem("token", token);

@@ -48,11 +48,12 @@ app.use('/api/basket', basketRoute);
 app.use('/api/auth', authRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-  });
-}
+    const buildPath = path.join(__dirname, '..', 'client', 'dist'); // Adjusted path
+    app.use(express.static(buildPath));
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(buildPath, 'index.html'));
+    });
+  }
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port: ${PORT}`);

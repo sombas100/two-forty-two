@@ -8,18 +8,16 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        "https://two-forty-two.onrender.com/api/profile",
-        {
-          headers: {
-            "x-auth-token": token,
-          },
-        }
-      );
+      const res = await axios.get(`${VITE_API_URL}/profile`, {
+        headers: {
+          "x-auth-token": token,
+        },
+      });
       setProfile(res.data.user);
       setIsLoading(false);
     } catch (error) {

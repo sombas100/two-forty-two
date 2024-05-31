@@ -9,6 +9,7 @@ import "./Cart.css";
 const Cart = () => {
   const [basket, setBasket] = useState([]);
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchBasketItems = async () => {
     const token = localStorage.getItem("token");
@@ -18,12 +19,9 @@ const Cart = () => {
     }
 
     try {
-      const res = await axios.get(
-        "https://two-forty-two.onrender.com/api/basket",
-        {
-          headers: { "x-auth-token": token },
-        }
-      );
+      const res = await axios.get(`${VITE_API_URL}/basket`, {
+        headers: { "x-auth-token": token },
+      });
       setBasket(res.data.basket);
     } catch (error) {
       console.error("Error fetching basket items:", error);
@@ -42,12 +40,9 @@ const Cart = () => {
     }
 
     try {
-      const res = await axios.delete(
-        `https://two-forty-two.onrender.com/api/basket/${productId}`,
-        {
-          headers: { "x-auth-token": token },
-        }
-      );
+      const res = await axios.delete(`${VITE_API_URL}/basket/${productId}`, {
+        headers: { "x-auth-token": token },
+      });
       if (res.status === 200) {
         setBasket((prevBasket) =>
           prevBasket.filter((item) => item.productId._id !== productId)

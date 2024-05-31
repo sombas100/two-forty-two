@@ -11,12 +11,11 @@ const ItemDescription = ({ updateBasketCount }) => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchProduct = async () => {
     try {
-      const res = await axios.get(
-        `https://two-forty-two.onrender.com/api/products/${productId}`
-      );
+      const res = await axios.get(`${VITE_API_URL}/products/${productId}`);
       setProduct(res.data);
     } catch (error) {
       console.error("Error fetching product:", error);
@@ -39,7 +38,7 @@ const ItemDescription = ({ updateBasketCount }) => {
         quantity: quantity,
       };
       axios
-        .post("https://two-forty-two.onrender.com/api/basket", newItem, {
+        .post(`${VITE_API_URL}/basket`, newItem, {
           headers: {
             "x-auth-token": token,
           },

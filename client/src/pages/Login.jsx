@@ -16,6 +16,7 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -30,13 +31,10 @@ const Login = ({ onLogin }) => {
       setIsLoading(true);
       setError(null);
 
-      const res = await axios.post(
-        "https://two-forty-two.onrender.com/api/auth/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        }
-      );
+      const res = await axios.post(`${VITE_API_URL}/auth/login`, {
+        email: formData.email,
+        password: formData.password,
+      });
 
       const { token } = res.data;
       localStorage.setItem("token", token);

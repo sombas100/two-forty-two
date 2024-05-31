@@ -9,6 +9,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const Payment = ({ productId, quantity }) => {
   const [products, setProducts] = useState([]);
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
   console.log("Product ID:", productId);
   console.log("Quantity:", quantity);
 
@@ -20,12 +21,9 @@ const Payment = ({ productId, quantity }) => {
         return;
       }
 
-      const res = await axios.get(
-        "https://two-forty-two.onrender.com/api/basket",
-        {
-          headers: { "x-auth-token": token },
-        }
-      );
+      const res = await axios.get(`${VITE_API_URL}/basket`, {
+        headers: { "x-auth-token": token },
+      });
 
       setProducts(res.data.basket);
     } catch (error) {

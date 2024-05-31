@@ -5,12 +5,11 @@ import "./Shop.css";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchProducts = async (req, res) => {
     try {
-      const res = await axios.get(
-        "https://two-forty-two.onrender.com/api/products/shop"
-      );
+      const res = await axios.get(`${VITE_API_URL}/products/shop`);
       setProducts(res.data);
     } catch (error) {
       console.error("Error fetching products", error);

@@ -14,12 +14,13 @@ const CheckoutForm = ({ productId, quantity }) => {
   const [orderId, setOrderId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const createOrderAndPaymentIntent = async () => {
       try {
         const { data } = await axios.post(
-          "https://two-forty-two.onrender.com/api/orders",
+          `${VITE_API_URL}/orders`,
           {
             products: [{ productId, quantity }],
           },
@@ -64,7 +65,7 @@ const CheckoutForm = ({ productId, quantity }) => {
       setError(`Payment failed: ${error.message}`);
     } else if (paymentIntent.status === "succeeded") {
       await axios.post(
-        "https://two-forty-two.onrender.com/api/payment/confirm-payment",
+        `${VITE_API_URL}/payment/confirm-payment`,
         {
           paymentIntentId: paymentIntent.id,
           orderId,
